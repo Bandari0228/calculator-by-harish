@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGE CALCULATOR</title>
+    <style>
+         *{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins',sans-serif;
+    box-sizing: border-box;
+
+}
+
+.container{
+    width: 100%;
+    min-height:100vh;
+    background: linear-gradient(135deg,#34a1ea,#90bafc);
+    color:#f1f1f1;
+    padding: 10px;
+}
+
+
+.calculator{
+    width: 100%;
+    max-width: 600px;
+    margin-left: 10%;
+    margin-top: 10%;
+}
+
+.calculator h1{
+    font-size: 60px;
+    color: black;
+}
+
+.input-box{
+    margin: 40px 0;
+    /* padding: 35px; */
+    border-radius: 10px;
+    /* background:rgba(255,255,255,0.3); */
+    display: flex;
+    align-items: center;
+
+}
+
+.input-box input{
+    flex:1;
+    margin-right: 20px;
+    padding: 14px 20px;
+    border: 0;
+    outline: 0;
+    font-size: 18px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.input-box button{
+    /* background: #ffff100; */
+    border: 0;
+    outline: 0;
+    padding: 15px 30px;
+    border-radius: 5px;
+    font-weight: 500;
+    color: #333;
+    cursor: pointer;
+}
+
+#result{
+  color: black;
+}
+
+@media (max-width: 600px) {
+  .calculator {
+    margin: 5px;
+  }
+
+  .calculator h1 {
+    font-size: 8vw;
+    margin-bottom: 20px;
+  }
+
+  .input-box {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 10px;
+  }
+
+  .input-box input,
+  .input-box button {
+    margin: 10px 0;
+    font-size: 6vw;
+  }
+
+  #result {
+    font-size: 6vw;
+    color: black;
+  }
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="calculator">
+            <h1>Age Calculator</h1>
+            <div class="input-box">
+                <input type="date" id="date">
+                <button type="button" onclick="calculateAge()">Calculate</button>
+            </div>
+            <p id="result"></p>
+        </div>
+    </div>
+
+    <script>
+        let userinput = document.getElementById("date");
+        userinput.max = new Date().toISOString().split("T")[0];
+        let result = document.getElementById("result");
+
+        function calculateAge() {
+            let selectedDate = userinput.value;
+
+            if (selectedDate === "") {
+                alert("Please select a date.");
+                result.textContent = "";
+                return;
+            }
+
+            let birthdate = new Date(selectedDate);
+            let today = new Date();
+
+            if (isNaN(birthdate.getTime())) {
+                alert("Invalid date format.");
+                result.textContent = "";
+                return;
+            }
+
+            let ageInMilliseconds = today - birthdate;
+            let ageDate = new Date(ageInMilliseconds);
+
+            let years = ageDate.getUTCFullYear() - 1970;
+            let months = ageDate.getUTCMonth();
+            let days = ageDate.getUTCDate();
+
+            result.innerHTML = `You are ${years} years, ${months} months, and ${days} days old.`;
+        }
+    </script>
+</body>
+</html>
